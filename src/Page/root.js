@@ -1,4 +1,8 @@
 import HtmlElement from '../core/HtmlElement.js';
+import {
+  connectStoreWithElement,
+  setInheritance,
+} from '../utils/manuplateDom.js';
 import Main from './Main/index.js';
 import MainStore from './Main/store.js';
 
@@ -6,8 +10,7 @@ export default function Root($element) {
   HtmlElement.call(this, $element);
 }
 
-Root.prototype = Object.create(HtmlElement.prototype);
-Root.prototype.constructor = Root;
+setInheritance({ parent: HtmlElement, child: Root });
 
 Root.prototype.setTemplate = function () {
   return `
@@ -18,7 +21,9 @@ Root.prototype.setTemplate = function () {
 
 Root.prototype.renderChild = function () {
   const $mainWrapper = document.getElementById('main');
-  const $main = new Main($mainWrapper);
-  const mainStore = new MainStore($main);
-  $main.init(mainStore);
+  connectStoreWithElement({
+    storeConstructor: MainStore,
+    elementConstructor: Main,
+    $elementWrapper: $mainWrapper,
+  });
 };
