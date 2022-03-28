@@ -12,6 +12,6 @@ export default function MainStore($element) {
 setInheritance({ parent: Store, child: MainStore });
 
 MainStore.prototype.requestDataToServer = async function () {
-  const { mockObj } = await fetchData('/Mock/mockServer.json');
-  this.setState({ ...this.state, ...mockObj });
+  const { mockObj, mockArr } = await fetchData('/Mock/mockServer.json');
+  this.setState({ ...this.state, ...mockObj, mockArr });
 };

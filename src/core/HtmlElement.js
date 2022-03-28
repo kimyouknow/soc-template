@@ -1,7 +1,7 @@
 export default function HtmlElement($element) {
   this.$element = $element;
   this.store;
-  this.state;
+  this.privateState;
 }
 
 HtmlElement.prototype.init = function (store) {
@@ -17,10 +17,8 @@ HtmlElement.prototype.setTemplate = function () {
 HtmlElement.prototype.renderChild = function () {};
 
 HtmlElement.prototype.render = function () {
-  const args = this.store.getState();
-  this.state = {
-    ...args,
-  };
+  this.store.getState();
+  this.state = {};
   this.$element.innerHTML = this.setTemplate();
   this.renderChild();
 };
