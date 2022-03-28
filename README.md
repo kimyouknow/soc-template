@@ -26,7 +26,7 @@
 
 3. 상태관리 로직을 변경
 
-- 컴포넌트마다 store를 둬서 관리하기, store와 컴포넌트는 소리를 모르게만들기
+- 컴포넌트마다 store를 둬서 관리하기, store와 컴포넌트는 서로를 모르게만들기
 - `getState()`: store의 전체 state나 필요한 state만 전달
 - `setState()`: 상태가 바뀌면 state를 변경하고 연결되어 있는 $element.render()실행
 

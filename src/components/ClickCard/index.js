@@ -1,23 +1,14 @@
 import HtmlElement from '../../core/HtmlElement.js';
 import { setInheritance } from '../../utils/manuplateDom.js';
 
-export default function ClickCard($element, props) {
-  HtmlElement.call(this, $element);
-  this.props = props;
+export default function ClickCard({ $element, isDirect, props }) {
+  HtmlElement.call(this, { $element, isDirect });
+  this.state = { ...props };
 }
-
 setInheritance({ parent: HtmlElement, child: ClickCard });
 
-ClickCard.prototype.render = function () {
-  this.state = {
-    props: this.props,
-  };
-};
-
 ClickCard.prototype.setTemplate = function () {
-  const {
-    props: { key, value },
-  } = this.state;
+  const { key, value } = this.state;
   return `
   <div class="${key} box" data-click-type="${key}">
     <h1>몇 번 클릭했니</h1>

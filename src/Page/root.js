@@ -2,8 +2,8 @@ import HtmlElement from '../core/HtmlElement.js';
 import { setInheritance } from '../utils/manuplateDom.js';
 import Main from './Main/index.js';
 
-export default function Root($element) {
-  HtmlElement.call(this, $element);
+export default function Root({ $element, isDirect }) {
+  HtmlElement.call(this, { $element, isDirect });
 }
 
 setInheritance({ parent: HtmlElement, child: Root });
@@ -17,6 +17,6 @@ Root.prototype.setTemplate = function () {
 
 Root.prototype.renderChild = function () {
   const $mainWrapper = document.getElementById('main');
-  const $main = new Main($mainWrapper);
+  const $main = new Main({ $element: $mainWrapper, isDirect: false });
   $main.init();
 };

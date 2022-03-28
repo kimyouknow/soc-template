@@ -17,4 +17,8 @@ MainStore.prototype.requestDataToServer = async function () {
   this.setState({ ...this.state, ...mockObj, mockArr });
 };
 
-export default new MainStore();
+const mainStore = new MainStore();
+
+await mainStore.init();
+
+export default mainStore;
