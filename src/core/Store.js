@@ -1,5 +1,4 @@
-export function Store($element) {
-  this.$element = $element;
+export function Store() {
   this.state = {};
   this.init();
 }
@@ -17,8 +16,7 @@ Store.prototype.getState = function (keys) {
   // return {...요청한 state들};
 };
 Store.prototype.setState = function (newState) {
-  this.state = { ...this.state, ...newState };
   // 디버그용
   console.log(newState);
-  this.$element.render();
+  this.state = { ...this.state, ...newState };
 };

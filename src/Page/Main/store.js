@@ -2,10 +2,11 @@ import { Store } from '../../core/Store.js';
 import { fetchData } from '../../utils/fetchData.js';
 import { setInheritance } from '../../utils/manuplateDom.js';
 
-export default function MainStore($element) {
-  Store.call(this, $element);
+function MainStore() {
+  Store.call(this);
   this.state = {
     clientState: '클라이언트에서만 쓰는 state',
+    mockArr: [],
   };
 }
 
@@ -15,3 +16,5 @@ MainStore.prototype.requestDataToServer = async function () {
   const { mockObj, mockArr } = await fetchData('/Mock/mockServer.json');
   this.setState({ ...this.state, ...mockObj, mockArr });
 };
+
+export default new MainStore();

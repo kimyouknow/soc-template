@@ -4,8 +4,7 @@ export default function HtmlElement($element) {
   this.privateState;
 }
 
-HtmlElement.prototype.init = function (store) {
-  this.store = store;
+HtmlElement.prototype.init = function () {
   this.render();
   this.setEvent();
 };
@@ -17,7 +16,6 @@ HtmlElement.prototype.setTemplate = function () {
 HtmlElement.prototype.renderChild = function () {};
 
 HtmlElement.prototype.render = function () {
-  this.store.getState();
   this.state = {};
   this.$element.innerHTML = this.setTemplate();
   this.renderChild();
