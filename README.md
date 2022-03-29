@@ -26,6 +26,8 @@
 
 3. 상태관리 로직을 변경
 
+> store와 HtmlElement분리!
+
 - 컴포넌트마다 store를 둬서 관리하기, store와 컴포넌트는 서로를 모르게만들기
 - 🤔 HtmlElement에서는 store의 state에 직접 접근할 수 없게 하기 (private으로 관리하기)
   > private varibale은 상속관계에서 쓸 수 없음., prototype으로 만든 클래스에서 private변수 사용하기
@@ -34,6 +36,101 @@
 - `connectInterface.js`
   - connectStore(): store와 element를 연결
   - reRenderHtmlElement(): store.newState가 일어나면 변경된 state를 가지고 있는 htmlElement를 리렌더링
+
+## private하게 state관리
+
+### 이전
+
+- HtmlElement에서 직접 state를 변경하지 않지만, 접근은 여전히 가능함.
+- store도 HtmlElement처럼 상속받아서 사용
+
+```js
+// /core/Store.js
+export default function Store() {
+  this.state;
+  this.targeComponent = {};
+}
+
+Store.prototype.getState = function (keys) {
+  if (!keys) return this.state;
+  // 생략
+};
+
+Store.prototype.setState = function (newState) {
+  // 생략
+  this.state = { ...this.state, ...newState };
+};
+
+// pages/main/store.js
+function MainStore() {
+  Store.call(this);
+  this.state = {
+    clientState: '클라이언트에서만 쓰는 state',
+    mockArr: [],
+  };
+}
+const mainStore = new MainStore();
+// 생략
+export default mainStore;
+
+// pages/main/index.js
+Main.prototype.initStore = function () {
+  connectStore({ element: this, store: mainStore });
+};
+
+Main.prototype.setTemplate = function () {
+  const {
+    state: { mockArr },
+  } = this.store;
+  // 아래 코드로 개선하긴 함. 그래도 여전히 store.state로 state에 접근 가능
+  const { mockArr } = this.store.getState({ mockArr: null });
+  // 생략
+};
+```
+
+### 이후
+
+- HtmlElement에서 직접 state에 접근 불가능
+- 상속하지 않고 필요한 컴포넌트마다 인스턴스를 생성해서 사용
+
+```js
+// /core/Store.js
+export default function Store(props) {
+  let state = props;
+  this.getState = function (keys) {
+    if (!keys) return state;
+    // 생략
+  };
+
+  this.setState = function (newState) {
+    state = { ...state, ...newState };
+  };
+}
+
+// pages/main/store.js
+const mainState = {
+  clientState: '클라이언트에서만 쓰는 state',
+  mockArr: [],
+};
+
+const mainStore = new Store(mainState);
+// 생략
+export default mainStore;
+
+// pages/main/index.js
+Main.prototype.initStore = function () {
+  connectStore({ element: this, store: mainStore });
+};
+
+Main.prototype.setTemplate = function () {
+  const {
+    state: { mockArr },
+  } = this.store;
+  // 아래 코드로 개선하긴 함. 그래도 여전히 store.state로 state에 접근 가능
+  const { mockArr } = this.store.getState({ mockArr: null });
+  // 생략
+};
+```
 
 4. 서버에서 오는 상태는 어떻게 처리할거니
 
