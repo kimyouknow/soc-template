@@ -1,8 +1,9 @@
-import ClickCard from '../../components/ClickCard/index.js';
+import { connectStore } from '../../core/connectInterface.js';
 import HtmlElement from '../../core/HtmlElement.js';
-import { setInheritance } from '../../utils/manuplateDom.js';
-import { handleClick } from './eventHandler.js';
 import mainStore from './store.js';
+import ClickCard from '../../components/ClickCard/index.js';
+import { handleClick } from './eventHandler.js';
+import { setInheritance } from '../../utils/manuplateDom.js';
 
 export default function Main({ $element, isDirect }) {
   HtmlElement.call(this, { $element, isDirect });
@@ -10,9 +11,8 @@ export default function Main({ $element, isDirect }) {
 
 setInheritance({ parent: HtmlElement, child: Main });
 
-Main.prototype.conenctStore = function () {
-  this.store = mainStore;
-  mainStore.render = this.render.bind(this);
+Main.prototype.initStore = function () {
+  connectStore({ element: this, store: mainStore });
 };
 
 Main.prototype.setTemplate = function () {
@@ -34,6 +34,5 @@ Main.prototype.setTemplate = function () {
 };
 
 Main.prototype.setEvent = function () {
-  // debugger;
   this.$element.addEventListener('click', handleClick.bind(this));
 };

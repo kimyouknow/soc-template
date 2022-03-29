@@ -5,12 +5,12 @@ export default function HtmlElement({ $element, isDirect }) {
 }
 
 HtmlElement.prototype.init = function () {
-  this.conenctStore();
+  this.initStore();
   this.render();
   this.setEvent();
 };
 
-HtmlElement.prototype.conenctStore = function () {};
+HtmlElement.prototype.initStore = function () {};
 
 HtmlElement.prototype.setTemplate = function () {
   return ``;
@@ -19,7 +19,6 @@ HtmlElement.prototype.setTemplate = function () {
 HtmlElement.prototype.renderChild = function () {};
 
 HtmlElement.prototype.render = function () {
-  this.state = {};
   this.$element.innerHTML = this.setTemplate();
   this.renderChild();
 };

@@ -1,6 +1,8 @@
+import { reRenderHtmlElement } from './connectInterface.js';
+
 export function Store(state) {
   this.state = state;
-  this.render;
+  this.targeComponent = {};
 }
 
 Store.prototype.init = async function () {
@@ -19,5 +21,9 @@ Store.prototype.setState = function (newState) {
   // 디버그용
   console.log(newState);
   this.state = { ...this.state, ...newState };
-  this.render && this.render(); // Element.render(), bind로 this를 묶어둠
+  // 바뀐 state를 포함한 element만 변경
+  reRenderHtmlElement({
+    targetHtmlElement: this.targeComponent.element,
+    newState,
+  });
 };
