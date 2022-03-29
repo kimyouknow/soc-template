@@ -6,7 +6,7 @@ export function connectStore({ element, store }) {
 export function reRenderHtmlElement({ targetHtmlElement, newState }) {
   if (targetHtmlElement) {
     Object.keys(newState).map((key) => {
-      if (targetHtmlElement.store.state.hasOwnProperty(key)) {
+      if (targetHtmlElement.store.getState().hasOwnProperty(key)) {
         targetHtmlElement.render();
       }
     });

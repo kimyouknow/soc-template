@@ -35,14 +35,14 @@
   - connectStore(): store와 element를 연결
   - reRenderHtmlElement(): store.newState가 일어나면 변경된 state를 가지고 있는 htmlElement를 리렌더링
 
-### 🤔 ...진행중
-
 4. 서버에서 오는 상태는 어떻게 처리할거니
 
 - store에 `requestDataToServer()`로 store가 init하자마자 실행해서 템플릿이 렌더링되기 전에 초기 값 세팅
 - 초기 렌더링이 아닌 이후 이벤트나 다른 함수에 의해 서버에 데이터를 요청할 경우 `setState()`를 실행
 
 5. 전역 상태는 어떻게 처리할거니
+
+### 🤔 ...진행중
 
 - rootstore는 전역 상태의 store가 아님. 그냥 root와 같은 층에 있는 store요소일 뿐, 하위 요소에서 rootstore로 바로 접근할 수 없고, rootStore도 하위 요소로 상태를 바로 전달할 수 없다.
 

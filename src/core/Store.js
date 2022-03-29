@@ -1,8 +1,26 @@
 import { reRenderHtmlElement } from './connectInterface.js';
 
-export default function Store() {
-  this.state;
+export default function Store(props) {
+  let state = props;
   this.targeComponent = {};
+  this.requestDataToServer;
+  this.getState = function (keys) {
+    if (!keys) return state;
+    return Object.keys(keys).reduce((acc, cur) => {
+      if (state.hasOwnProperty(cur)) {
+        return { ...acc, ...{ [cur]: state[cur] } };
+      }
+    }, {});
+  };
+
+  this.setState = function (newState) {
+    state = { ...state, ...newState };
+    // 바뀐 state를 포함한 element만 변경
+    reRenderHtmlElement({
+      targetHtmlElement: this.targeComponent.element,
+      newState,
+    });
+  };
 }
 
 Store.prototype.init = async function () {
@@ -10,21 +28,3 @@ Store.prototype.init = async function () {
 };
 
 Store.prototype.requestDataToServer = function () {};
-
-Store.prototype.getState = function (keys) {
-  if (!keys) return this.state;
-  return Object.keys(keys).reduce((acc, cur) => {
-    if (this.state.hasOwnProperty(cur)) {
-      return { ...acc, ...{ [cur]: this.state[cur] } };
-    }
-  }, {});
-};
-
-Store.prototype.setState = function (newState) {
-  this.state = { ...this.state, ...newState };
-  // 바뀐 state를 포함한 element만 변경
-  reRenderHtmlElement({
-    targetHtmlElement: this.targeComponent.element,
-    newState,
-  });
-};
