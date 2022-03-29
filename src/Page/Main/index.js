@@ -1,7 +1,7 @@
 import ClickCard from '../../components/ClickCard/index.js';
 import HtmlElement from '../../core/HtmlElement.js';
-import { setInheritance } from '../../utils/manuplateDom.js';
 import { handleClick } from './eventHandler.js';
+import { setInheritance } from '../../utils/manuplateDom.js';
 import mainStore from './store.js';
 
 export default function Main({ $element, isDirect }) {
@@ -16,9 +16,7 @@ Main.prototype.conenctStore = function () {
 };
 
 Main.prototype.setTemplate = function () {
-  const {
-    state: { mockArr },
-  } = this.store;
+  const { mockArr } = this.getState({ mockArr: null });
   return mockArr.length === 0
     ? `<div>Loading....</div>`
     : mockArr
@@ -34,6 +32,5 @@ Main.prototype.setTemplate = function () {
 };
 
 Main.prototype.setEvent = function () {
-  // debugger;
   this.$element.addEventListener('click', handleClick.bind(this));
 };
