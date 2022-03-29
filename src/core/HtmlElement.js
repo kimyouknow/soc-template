@@ -1,16 +1,12 @@
 export default function HtmlElement({ $element, isDirect }) {
   this.$element = $element;
-  this.store;
   this.privateState;
 }
 
 HtmlElement.prototype.init = function () {
-  this.initStore();
   this.render();
   this.setEvent();
 };
-
-HtmlElement.prototype.initStore = function () {};
 
 HtmlElement.prototype.setTemplate = function () {
   return ``;

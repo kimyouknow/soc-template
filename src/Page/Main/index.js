@@ -1,6 +1,4 @@
-import { connectStore } from '../../core/connectInterface.js';
 import HtmlElement from '../../core/HtmlElement.js';
-import mainStore from './store.js';
 import ClickCard from '../../components/ClickCard/index.js';
 import { handleClick } from './eventHandler.js';
 import { setInheritance } from '../../utils/manuplateDom.js';
@@ -11,12 +9,8 @@ export default function Main({ $element, isDirect }) {
 
 setInheritance({ parent: HtmlElement, child: Main });
 
-Main.prototype.initStore = function () {
-  connectStore({ element: this, store: mainStore });
-};
-
 Main.prototype.setTemplate = function () {
-  const { mockArr } = this.store.getState({ mockArr: null });
+  const { mockArr } = this.getState({ mockArr: null });
   return mockArr.length === 0
     ? `<div>Loading....</div>`
     : mockArr

@@ -1,6 +1,8 @@
+import { ConnectInterface } from '../core/ConnectInterface.js';
 import HtmlElement from '../core/HtmlElement.js';
 import { setInheritance } from '../utils/manuplateDom.js';
 import Main from './Main/index.js';
+import mainStore from './Main/store.js';
 
 export default function Root({ $element, isDirect }) {
   HtmlElement.call(this, { $element, isDirect });
@@ -18,5 +20,9 @@ Root.prototype.setTemplate = function () {
 Root.prototype.renderChild = function () {
   const $mainWrapper = document.getElementById('main');
   const $main = new Main({ $element: $mainWrapper, isDirect: false });
-  $main.init();
+  const mainInterface = new ConnectInterface({
+    elements: { $main },
+    store: mainStore,
+  });
+  mainInterface.init();
 };

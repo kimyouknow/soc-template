@@ -1,12 +1,10 @@
-import { reRenderHtmlElement } from './connectInterface.js';
-
 export default function Store(props) {
   let state = props;
   this.targeComponent = {};
   this.requestDataToServer;
-  this.getState = function (keys) {
-    if (!keys) return state;
-    return Object.keys(keys).reduce((acc, cur) => {
+  this.getState = function (keysObj) {
+    if (!keysObj) return state;
+    return Object.keys(keysObj).reduce((acc, cur) => {
       if (state.hasOwnProperty(cur)) {
         return { ...acc, ...{ [cur]: state[cur] } };
       }
@@ -15,11 +13,7 @@ export default function Store(props) {
 
   this.setState = function (newState) {
     state = { ...state, ...newState };
-    // 바뀐 state를 포함한 element만 변경
-    reRenderHtmlElement({
-      targetHtmlElement: this.targeComponent.element,
-      newState,
-    });
+    return newState;
   };
 }
 
