@@ -16,9 +16,7 @@ Main.prototype.initStore = function () {
 };
 
 Main.prototype.setTemplate = function () {
-  const {
-    state: { mockArr },
-  } = this.store;
+  const { mockArr } = this.store.getState({ mockArr: null });
   return mockArr.length === 0
     ? `<div>Loading....</div>`
     : mockArr

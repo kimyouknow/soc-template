@@ -13,13 +13,30 @@ export function reRenderHtmlElement({ targetHtmlElement, newState }) {
   }
 }
 
+// // 함수가 호출됐는지 어떻게 구독하고 있지?
 // function ConnectInterface({ element, store }) {
 //   this.element = element;
 //   this.store = store;
-//   this.connectStore()
+//   this.connectStore();
 // }
 
-// ConnectInterface.prototype.connectStore = function(){
-//   this.element.store = store;
+// ConnectInterface.prototype.connectStore = function () {
+//   this.element.store = this.store;
+//   this.store.targeComponent = {
+//     ...this.store.targeComponent,
+//     element: this.element,
+//   };
+// };
 
-// }
+// ConnectInterface.prototype.reRenderHtmlElement = function ({
+//   targetHtmlElement,
+//   newState,
+// }) {
+//   if (targetHtmlElement) {
+//     Object.keys(newState).map((key) => {
+//       if (targetHtmlElement.store.state.hasOwnProperty(key)) {
+//         targetHtmlElement.render();
+//       }
+//     });
+//   }
+// };

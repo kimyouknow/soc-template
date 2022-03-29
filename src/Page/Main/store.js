@@ -1,4 +1,4 @@
-import { Store } from '../../core/Store.js';
+import Store from '../../core/Store.js';
 import { fetchData } from '../../utils/fetchData.js';
 import { setInheritance } from '../../utils/manuplateDom.js';
 
