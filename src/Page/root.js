@@ -1,4 +1,4 @@
-import { ConnectInterface } from '../core/ConnectInterface.js';
+import ConnectInterface from '../core/ConnectInterface.js';
 import HtmlElement from '../core/HtmlElement.js';
 import { setInheritance } from '../utils/manuplateDom.js';
 import Main from './Main/index.js';
