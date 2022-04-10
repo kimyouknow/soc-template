@@ -1,24 +1,23 @@
-export default function Store(props) {
-  let state = props;
-  this.targeComponent = {};
-  this.requestDataToServer;
-  this.getState = function (keysObj) {
+export default class Store {
+  constructor(props) {
+    this.state = props;
+    this.targetComponent = {};
+    this.requestDataToServer;
+  }
+  async init() {
+    await this.requestDataToServer();
+  }
+  requestDataToServer() {}
+  getState(keysObj) {
     if (!keysObj) return state;
     return Object.keys(keysObj).reduce((acc, cur) => {
-      if (state.hasOwnProperty(cur)) {
-        return { ...acc, ...{ [cur]: state[cur] } };
+      if (this.state.hasOwnProperty(cur)) {
+        return { ...acc, ...{ [cur]: this.state[cur] } };
       }
     }, {});
-  };
-
-  this.setState = function (newState) {
-    state = { ...state, ...newState };
+  }
+  setState = function (newState) {
+    this.state = { ...this.state, ...newState };
     return newState;
   };
 }
-
-Store.prototype.init = async function () {
-  await this.requestDataToServer();
-};
-
-Store.prototype.requestDataToServer = function () {};
