@@ -1,7 +1,10 @@
-import { createElement } from '../utils/fetchData';
+import Header from './Header.js';
+import { createElement } from '../utils/manuplateDom.js';
+import Main from './Main.js';
 
 export default function Root() {
-  const $rootWrapper = document.getElementById('root');
-  const $element = createElement('div', $rootWrapper);
+  const $element = createElement({ tag: 'root' });
+  const $$children = [Header(), Main()];
+  $element.append(...$$children);
   return $element;
 }

@@ -1,7 +1,8 @@
-import Root from './Layout/root.js';
+import Root from './Layout/Root.js';
 
 function init() {
-  Root();
+  const $rootWrapper = document.getElementById('root');
+  $rootWrapper.append(Root());
 }
 
 window.addEventListener('DOMContentLoaded', init);

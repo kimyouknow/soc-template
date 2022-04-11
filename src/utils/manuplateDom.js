@@ -1,14 +1,5 @@
-export async function fetchData(url) {
-  try {
-    const data = await fetch(url);
-    return data.json();
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-export const createElement = ({ tagName, className, id, attrs }) => {
-  const element = document.createElement(tagName);
+export const createElement = ({ tag = 'div', className, id, attrs }) => {
+  const element = document.createElement(tag);
   if (className) {
     if (Array.isArray(className)) element.className = className.join(' ');
     else element.className = className;
