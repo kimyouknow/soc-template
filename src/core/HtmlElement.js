@@ -1,23 +1,17 @@
 export default class HtmlElement {
-  constructor({ $element }) {
-    this.$element = $element;
+  constructor({ type = 'div' }) {
+    this.$element = document.createElement(type);
   }
   init() {
-    this.render();
     this.renderChild();
     this.setEvent();
   }
-  conenctStore() {}
-  setTemplate() {
-    return ``;
-  }
-  renderChild() {}
+  setTemplate() {}
   beforeRender() {
     this.state = {};
   }
   render() {
-    this.beforeRender();
-    this.$element.innerHTML = this.setTemplate();
+    return this.$element;
   }
   setEvent() {}
 }
