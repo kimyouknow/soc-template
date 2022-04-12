@@ -5,6 +5,7 @@ import Main from './Main.js';
 export default function Root() {
   const $element = createElement({ tag: 'root' });
   const $$children = [Header(), Main()];
-  $element.append(...$$children);
+  const render = () => $element.append(...$$children);
+  render();
   return $element;
 }
